@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -72,7 +71,12 @@ public class NMSBiomeInjector {
     }
 
     public static String createBiomeID(ConfigPack pack, com.dfsek.terra.api.registry.key.RegistryKey biomeID) {
-        return pack.getID()
-                   .toLowerCase() + "/" + biomeID.getNamespace().toLowerCase(Locale.ROOT) + "/" + biomeID.getID().toLowerCase(Locale.ROOT);
+//        String format = "%pack_id%/%biome_namespace%/%biome_id%"; // Default Terra Format
+        String format = "%pack_id%/%biome_id%";
+
+        return format
+            .replace("%pack_id%", pack.getID().toLowerCase())
+            .replace("%biome_namespace%", biomeID.getNamespace().toLowerCase())
+            .replace("%biome_id%", biomeID.getID().toLowerCase());
     }
 }
